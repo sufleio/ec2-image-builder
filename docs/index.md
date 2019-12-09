@@ -8,13 +8,16 @@ required policies:
 - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM
 - arn:aws:iam::aws:policy/EC2InstanceProfileForImageBuilder
 3. Replace <bucket-name> with your newly created bucket name (configuration-bucket)
-4. Create EC2 Image Builder pipeline with Amazon Linux 2
-5. Create components that you want to use and select
+4. [Create EC2 Image Builder](https://eu-west-1.console.aws.amazon.com/imagebuilder/home#createPipeline) pipeline with Amazon Linux 2
+5. [Create Components](https://eu-west-1.console.aws.amazon.com/imagebuilder/home#createComponent) that you want to use by coping yaml file.
 6. Select IAM Role that you have created
 7. Name your pipeline
 8. Name your AMI
-9. Run pipeline
+9. Trigger pipeline
 
+## Troubleshooting
+- You can disable `Terminate instance on failure` option and select a keypair while creating a pipeline to connect and troubleshoot any errors on the build instance.
+- You can follow and check AWS Systems Manager logs from, https://eu-west-1.console.aws.amazon.com/systems-manager/automation/executions
 
 ## Detailed Documentation of Components
 - [CIS Benchmarks](cis-benchmarks.md)
