@@ -1,0 +1,28 @@
+name: Cloudwatch
+description: This component setup and configure cloudwatch agent
+schemaVersion: 1.0
+
+phases:
+  - name: build
+    steps:
+
+      - name: CloudwatchAgentDownload
+        action: ExecuteBash
+        inputs:
+          commands:
+            - wget https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
+      - name: CloudwatchAgentInstallation
+        action: ExecuteBash
+        inputs:
+          commands:
+            - rpm -U ./amazon-cloudwatch-agent.rpm
+      - name: CloudwatchAgentConfiguration
+        action: S3Download
+        inputs:
+          - source: 's3://<bucket-name>/cloudwatch.json'
+            destination: /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+      - name: CloudwatchAgentEnable
+        action: ExecuteBash
+        inputs:
+          commands:
+            - systemctl enable amazon-cloudwatch-agent

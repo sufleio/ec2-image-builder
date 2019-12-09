@@ -1,0 +1,1 @@
+install hfs /bin/true

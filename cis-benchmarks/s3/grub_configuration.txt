@@ -1,0 +1,2 @@
+GRUB_CMDLINE_LINUX_DEFAULT="console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 nvme_core.io_timeout=4294967295 rd.emergency=poweroff rd.shell=0 ipv6.disable=1 audit=1"
+GRUB_TIMEOUT=0

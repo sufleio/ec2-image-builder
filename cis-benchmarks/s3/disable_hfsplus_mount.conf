@@ -1,0 +1,1 @@
+install hfsplus /bin/true
