@@ -7,8 +7,6 @@ Custom Build and Test Components developed for AWS EC2 Image Builder (https://do
 required policies:
 - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM
 - arn:aws:iam::aws:policy/EC2InstanceProfileForImageBuilder
-additional policies:
-- create a policy to give access to newly created bucket (configuration-bucket)
 3. Replace <bucket-name> with your newly created bucket name (configuration-bucket)
 4. Create EC2 Image Builder pipeline with Amazon Linux 2
 5. Create components that you want to use and select
