@@ -1,6 +1,11 @@
 name: CISBenchmarks
-description: This component builds an hardened image according to CIS Amazon Linux 2 Benchmark version 1.0.0
+description: "This component builds an hardened image according to CIS Amazon Linux 2 Benchmark version 1.0.0 (source: https://github.com/sufleio/ec2-image-builder)"
 schemaVersion: 1.0
+
+parameters:
+  - S3BucketNameParameter:
+      type: string
+      description: Name of S3 bucket containing conf files
 
 phases:
   - name: build
@@ -9,27 +14,27 @@ phases:
       - name: DisableCramfsMount
         action: S3Download
         inputs:
-          - source: 's3://<bucket-name>/disable_cramfs_mount.conf'
+          - source: 's3://{{ S3BucketNameParameter }}/disable_cramfs_mount.conf'
             destination: '/etc/modprobe.d/cramfs.conf'
       - name: DisableHfsMount
         action: S3Download
         inputs:
-          - source: 's3://<bucket-name>/disable_hfs_mount.conf'
+          - source: 's3://{{ S3BucketNameParameter }}/disable_hfs_mount.conf'
             destination: '/etc/modprobe.d/hfs.conf'
       - name: DisableHfsplusMount
         action: S3Download
         inputs:
-          - source: 's3://<bucket-name>/disable_hfsplus_mount.conf'
+          - source: 's3://{{ S3BucketNameParameter }}/disable_hfsplus_mount.conf'
             destination: '/etc/modprobe.d/hfsplus.conf'
       - name: DisableSquashfsMount
         action: S3Download
         inputs:
-          - source: 's3://<bucket-name>/disable_squashfs_mount.conf'
+          - source: 's3://{{ S3BucketNameParameter }}/disable_squashfs_mount.conf'
             destination: '/etc/modprobe.d/squashfs.conf'
       - name: DisableUdfMount
         action: S3Download
         inputs:
-          - source: 's3://<bucket-name>/disable_udf_mount.conf'
+          - source: 's3://{{ S3BucketNameParameter }}/disable_udf_mount.conf'
             destination: '/etc/modprobe.d/udf.conf'
       - name: ShmConfiguration
         action: ExecuteBash
@@ -52,7 +57,7 @@ phases:
       - name: AideCheck
         action: S3Download
         inputs:
-          - source: 's3://<bucket-name>/aide_check.conf'
+          - source: 's3://{{ S3BucketNameParameter }}/aide_check.conf'
             destination: '/etc/cron.d/aide'
       - name: BootloaderConfig
         action: ExecuteBash
@@ -79,17 +84,17 @@ phases:
       - name: MessageOfTheDay
         action: S3Download
         inputs:
-          - source: 's3://<bucket-name>/message_of_the_day.txt'
+          - source: 's3://{{ S3BucketNameParameter }}/message_of_the_day.txt'
             destination: '/etc/motd'
       - name: LocalLoginBanner
         action: S3Download
         inputs:
-          - source: 's3://<bucket-name>/local_login_banner.txt'
+          - source: 's3://{{ S3BucketNameParameter }}/local_login_banner.txt'
             destination: '/etc/issue'
       - name: RemoteLoginBanner
         action: S3Download
         inputs:
-          - source: 's3://<bucket-name>/remote_login_banner.txt'
+          - source: 's3://{{ S3BucketNameParameter }}/remote_login_banner.txt'
             destination: '/etc/issue.net'
       - name: MotdPermissions
         action: ExecuteBash
@@ -228,23 +233,23 @@ phases:
       - name: DisableIPv6
         action: S3Download
         inputs:
-          - source: 's3://<bucket-name>/grub_configuration.txt'
+          - source: 's3://{{ S3BucketNameParameter }}/grub_configuration.txt'
             destination: '/etc/default/grub'
 
       - name: ConfigureAuditd
         action: S3Download
         inputs:
-          - source: 's3://<bucket-name>/auditd.conf'
+          - source: 's3://{{ S3BucketNameParameter }}/auditd.conf'
             destination: '/etc/audit/auditd.conf'
       - name: ConfigureAuditRules
         action: S3Download
         inputs:
-          - source: 's3://<bucket-name>/audit_rules.txt'
+          - source: 's3://{{ S3BucketNameParameter }}/audit_rules.txt'
             destination: '/etc/audit/rules.d/audit.rules'
       - name: RsyslogConfiguration
         action: S3Download
         inputs:
-          - source: 's3://<bucket-name>/rsyslog_configuration.conf'
+          - source: 's3://{{ S3BucketNameParameter }}/rsyslog_configuration.conf'
             destination: '/etc/rsyslog.conf'
       - name: LogFilePermissions
         action: ExecuteBash
@@ -302,10 +307,10 @@ phases:
       - name: SSHConfiguration
         action: S3Download
         inputs:
-          - source: 's3://<bucket-name>/sshd_configuration.conf'
+          - source: 's3://{{ S3BucketNameParameter }}/sshd_configuration.conf'
             destination: '/etc/ssh/sshd_config'
       - name: UmaskConfiguration
         action: S3Download
         inputs:
-          - source: 's3://<bucket-name>/bashrc'
+          - source: 's3://{{ S3BucketNameParameter }}/bashrc'
             destination: '/etc/bashrc'
